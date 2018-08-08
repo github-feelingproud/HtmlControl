@@ -3,7 +3,9 @@ var TextBox = function(config){
 	this.controlId = config["id"];
 	this.control = $("#" + config["id"]);
 	this.href = config["href"];
-    this.width = config["width"] || 200;
+	this.width = config["width"] || 200;
+	this.beginValidate = config["beginValidate"];
+    this.endValidate = config["endValidate"];
 	var shelf = this;
 	
 	if(shelf.href){
@@ -106,22 +108,25 @@ var TextBox = function(config){
 	});
 	
 	this.getText = function(){
-		return control.val();
+	    return input.val();
 	};
 	
-	this.setTest = function(text){
-		return control.val(text)
+	this.setTest = function(text) {
+	    return input.val(text);
 	};
 	
 	this.disable = function(){
-		control.attr("disabled", true);
+	    input.attr("disabled", true);
 	};
 	
 	this.enable = function(){
-		control.removeAttr("disabled");
+	    input.removeAttr("disabled");
 	};
 
     this.validate = function() {
+        if (this.beginValidate) {
+            this.beginValidate(input);
+        }
         control.removeClass("has-success");
         control.removeClass("has-error");
         var text = input.val();
@@ -129,6 +134,9 @@ var TextBox = function(config){
             control.addClass("has-error");
             errorMessage.find("span[errorType=nullError]").show();
             input[0].focus();
+            if (this.endValidate) {
+                this.endValidate(input);
+            }
             return false;
         } else {
             errorMessage.find("span[errorType=nullError]").hide();
@@ -137,6 +145,9 @@ var TextBox = function(config){
             control.addClass("has-error");
             errorMessage.find("span[errorType=illegal]").show();
             input[0].focus();
+            if (this.endValidate) {
+                this.endValidate(input);
+            }
             return false;
         } else {
             errorMessage.find("span[errorType=illegal]").hide();
@@ -145,12 +156,18 @@ var TextBox = function(config){
             control.addClass("has-error");
             errorMessage.find("span[errorType=minLength]").show();
             input[0].focus();
+            if (this.endValidate) {
+                this.endValidate(input);
+            }
             return false;
         } else {
             errorMessage.find("span[errorType=minLength]").hide();
         }
         control.addClass("has-success");
         rightMessage.show();
+        if (this.endValidate) {
+            this.endValidate(input);
+        }
         return text;
     };
 };

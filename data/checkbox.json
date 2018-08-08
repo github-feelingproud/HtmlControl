@@ -1,0 +1,14 @@
+{
+	"label": "标签",
+	"name": "checkbox",
+	"min": 1,
+	"max": 3,
+	"items": [
+		{"text": "选项1", "value":1},
+		{"text": "选项2", "value":2},
+		{"text": "选项3", "value":3},
+		{"text": "选项4", "value":4},
+		{"text": "选项5", "value":5},
+		{"text": "选项6", "value":6}
+	]
+}

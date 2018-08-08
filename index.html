@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" href="css/public.css" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/bootstrap-datepicker.min.css" />
+		<link rel="stylesheet" href="css/bootstrap-chosen.css" />
+		<link rel="stylesheet" href="css/jquery.treegrid.css" />
+		<script type="text/javascript" src="js/public.js" ></script>
+		<script type="text/javascript" src="js/jquery-3.3.1.min.js" ></script>
+		<script type="text/javascript" src="js/bootstrap.min.js" ></script>
+		<script type="text/javascript" src="js/jquery.treegrid.js" ></script>
+		<script type="text/javascript" src="js/jquery.treegrid.bootstrap3.js" ></script>
+		<script type="text/javascript" src="js/bootstrap-datepicker.min.js" ></script>
+		<script type="text/javascript" src="js/bootstrap-datepicker.zh-CN.min.js" ></script>
+		<script type="text/javascript" src="js/undersource-1.9.1.js" ></script>
+		<script type="text/javascript" src="js/chosen.jquery.js" ></script>
+		<script type="text/javascript" src="js/Control/TextBox.js" ></script>
+		<script type="text/javascript" src="js/Control/CheckBoxGroup.js" ></script>
+		<script type="text/javascript" src="js/Control/RadioGroup.js" ></script>
+		<script type="text/javascript" src="js/Control/DateBox.js" ></script>
+		<script type="text/javascript" src="js/Control/Select.js" ></script>
+		<script type="text/javascript" src="js/Control/ComboTree.js" ></script>
+	</head>
+	<body>
+		<form class="form-inline" method="post" style="padding: 50px;">
+			<label for="textbox">标签:</label>&nbsp;<div id="textbox"></div>
+			<br />
+			<br />
+			<label for="checkbox-group">复选按钮:</label>&nbsp;<div id="checkbox-group"></div>
+			<br />
+			<label for="radio-group">单选按钮:</label>&nbsp;<div id="radio-group"></div>
+			<br />
+			<br />
+			<label for="datebox">日期:</label>&nbsp;<div id="datebox"></div>
+			<br />
+			<br />
+			<label for="datebox">下拉列表:</label>&nbsp;<div id="select"></div>
+			<br />
+			<br />
+			<div id="comboTree"></div>
+			<br />
+			<br />
+			<button class="btn btn-primary" type="submit" onclick="checkboxs.validate()">validate</button>
+			<br />
+			<br />
+			<button class="btn btn-primary" onclick="checkboxs.disable(); radios.disable();">disable</button>
+			<br />
+			<br />
+			<button class="btn btn-primary" onclick="checkboxs.enable(); radios.enable();">enable</button>
+		</form>
+	</body>
+	<script type="text/javascript">
+		
+		var comboTree = new ComboTree({
+			id: "comboTree",
+			label: "XXXX",
+			name: "comboTree",
+			width: 200,
+			require: true,
+			defaultValue: 81,
+			items: [
+				{
+					text: "选项1", 
+					value: 11,
+					childNodes: [
+						{text: "选项6", value: 61},
+						{text: "选项7", value: 71},
+						{text: "选项8", value: 81},
+						{
+							text: "选项9", 
+							value: 91,
+							childNodes: [
+								{text: "选项10", value: 101},
+								{text: "选项11", value: 111},
+								{text: "选项12", value: 121},
+							]
+						}
+					]
+				},
+				{text: "选项2", value: 21},
+				{text: "选项3", value: 31},
+				{text: "选项4", value: 41},
+				{text: "选项5", value: 51}
+			]
+		});
+		
+		var select = new Select({
+			id: "select",
+			label: "选项",
+			require: true,
+			name: "select",
+			defaultValue: [11],
+			isMultiple: false,
+			width: 200,
+			items: [
+				{text: "选项1", value: 11},
+				{text: "选项2", value: 21},
+				{text: "选项3", value: 31},
+				{text: "选项4", value: 41},
+				{text: "选项5", value: 51}
+			],
+			optionFormatter: function(relText, index){
+				return (index + 1) + ". " + relText;
+			}
+		});
+		var textbox = new TextBox({
+			id: "textbox",
+			label: "标签",
+			require: true,
+			name: "textbox",
+			pattern: /^[0-9a-zA-Z]+$/,
+			minLength: 6,
+			maxLength: 12
+		});
+		
+		var checkboxs = new CheckBoxGroup({
+			id: "checkbox-group",
+			href: "data/checkbox.json",
+//			label: "标签",
+//			name: "checkbox",
+//			min: 1,
+//			max: 3,
+//			items: [
+//				{text: "选项1", value: 1},
+//				{text: "选项2", value: 2},
+//				{text: "选项3", value: 3},
+//				{text: "选项4", value: 4},
+//				{text: "选项5", value: 5}
+//			]
+		});
+		var radios = new RadioGroup({
+			id: "radio-group",
+			label: "标签",
+			name: "radio",
+			defaultValue: 5,
+			items: [
+				{text: "选项1", value: 1},
+				{text: "选项2", value: 2},
+				{text: "选项3", value: 3},
+				{text: "选项4", value: 4},
+				{text: "选项5", value: 5}
+			]
+		});
+		var datebox = new DateBox({
+			id: "datebox",
+			label: "日期",
+			name: "date",
+			require: true,
+			defaultValue: "2018-08-01"
+		});
+	</script>
+</html>

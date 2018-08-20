@@ -24,6 +24,7 @@ var Select = function (config) {
         });
     }
 
+
     this.label = this.label || config["label"];
     this.name = this.name || config["name"];
     this.require = this.require || config["require"] || false;
@@ -41,12 +42,12 @@ var Select = function (config) {
     var option = '<option value="{value}" relText="{relText}">{text}</option>';
     for (var i = 0; i < shelf.items.length; i++) {
         var item = shelf.items[i];
-        var relText = item["text"];
-        var value = item["value"];
+        var relText = item["text"] || item["Text"];
+        var value = item["value"] || item["Value"];
         var text = shelf.optionFormatter ? shelf.optionFormatter(relText, i) : relText;
         var html = option.replaceAll("{value}", value).replaceAll("{relText}", relText).replaceAll("{text}", text);
         var optionItem = $(html);
-        if (!!shelf.defaultValue) {
+        if (!!shelf.defaultValue && !!value && !!relText) {
             if (shelf.defaultValue.toString().contains(value.toString()) || shelf.defaultValue.toString().contains(relText.toString())) {
                 optionItem.prop("selected", true);
             }
